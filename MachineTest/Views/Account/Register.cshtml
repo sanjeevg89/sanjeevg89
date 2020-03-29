@@ -1,0 +1,97 @@
+﻿@model MachineTest.Employee
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Create a new account.</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.BirthDate, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.BirthDate, new { @class = "datepicker" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Qualification, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m=>m.QualificationList, new SelectList(Enum.GetValues(typeof(MachineTest.Employee.Qualification1))),"Select Qualification", new { @class = "form-control" })
+
+
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Experience, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Experience, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.JoinningDate, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.JoinningDate, new { @class = "datepicker" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Salary, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Salary, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Designation, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Designation, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Hobbies", new { @class = "col-md-2 control-label" })
+        <table>
+            @{
+                List<CheckModel> mylist = ViewBag.hobbies;
+                foreach (var item in mylist)
+                {
+                    <tr>
+                        <input id="w" type="checkbox" name="hobbies"  value="@item.Hobbies"/>@item.Hobbies
+                    </tr>
+                }
+                
+            }
+        </table>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Register" />
+        </div>
+    </div>
+                }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+        //...
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy', //choose the date format you prefer
+            language: "YOUR-LOCALE-CODE-HERE",
+            orientation: 'left bottom'
+        });
+</script>
+
+}

@@ -1,0 +1,100 @@
+﻿@model IEnumerable<MachineTest.Employee>
+
+@{
+    ViewBag.Title = "UserLandingView1";
+    WebGrid webGrid1 = new WebGrid(source: Model,canPage:false);
+    
+    }
+
+<h2>All Users Details in Grid:</h2>
+
+<style type="text/css">
+    body {
+        font-family: Arial;
+        font-size: 10pt;
+    }
+
+    .Grid {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+    }
+
+        .Grid th {
+            background-color: #F7F7F7;
+            font-weight: bold;
+        }
+
+        .Grid th, .Grid td {
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .Grid, .Grid table td {
+            border: 0px solid #ccc;
+        }
+
+            .Grid th a, .Grid th a:visited {
+                color: #333;
+            }
+</style>
+   
+@using (Html.BeginForm("Index", "Account", FormMethod.Post))
+{
+    <b>Search Option</b>
+    @Html.RadioButton("option", "Name")<text>Name</text>
+    @Html.TextBox("Search")<input type="submit" value="Search" />
+}
+@using (Html.BeginForm("Export", "Account", FormMethod.Post))
+{
+    <input type="submit" id="btnSubmit" value="Export" />
+    <input type="hidden" name="GridHtml1" />
+}
+<div id="grid">
+    @webGrid1.GetHtml(
+    htmlAttributes: new { @id = "WebGrid", @class = "Grid" },
+    columns: webGrid1.Columns(
+        webGrid1.Column("Name", "Name"),
+        webGrid1.Column("BirthDate", "BirthDate"),
+        webGrid1.Column("Qualification", "Qualification"),
+        webGrid1.Column("Experience", "Experience"),
+        webGrid1.Column("JoinningDate", "JoinningDate"),
+        webGrid1.Column("Salary", "Salary"),
+        webGrid1.Column("Designation", "Designation"),
+        webGrid1.Column("Hobbies", "Hobbies")
+        //
+        )
+
+    )
+    
+
+    @Html.Hidden("dir", webGrid1.SortDirection)
+    @Html.Hidden("col", webGrid1.SortColumn)
+</div>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script>
+    $(function()
+    {
+        try {
+            //var dir = $('#dir').val();
+            //var col = $('#col').val();
+            //var header = $("th a[href*=" + col + "]");
+            //if (dir=="Ascending") {
+            //    header.text(header.text() + "^");
+
+            //}
+
+            //if (dir=="Descending") {
+            //    header.text(header.text()+">");
+            //}
+
+            $("#btnSubmit").click(function () {
+                $("input[name='GridHtml1']").val($("#grid").html());
+            });
+        } catch (e) {
+
+        }
+    }
+    )
+
+</script>
